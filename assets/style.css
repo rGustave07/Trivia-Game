@@ -38,8 +38,8 @@ body{
   margin-bottom: 30px;
 }
 
-#answer1,
-#answer2{
+#answer0,
+#answer1{
   background-color: black;
   width: 250px;
   height: 50px;
@@ -47,8 +47,8 @@ body{
   word-wrap: break-word;
 }
 
-#answer3,
-#answer4 {
+#answer2,
+#answer3 {
   background-color: black;
   width: 250px;
   height: 50px;

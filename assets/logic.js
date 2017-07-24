@@ -1,8 +1,8 @@
-$(document).ready(function(){
 
   var questionsAsked;
   var correctAnswers;
   var wrongAnswers;
+  var index = 0;
 
   function rndNumGen(min, max) {
     return Math.random() * (max - min) + min;
@@ -22,40 +22,50 @@ $(document).ready(function(){
     })
   };
 
-  var question1 = {
-    question : "Why must everything be so complicated?",
-    ans1 : "That's the way it is",
-    ans2 : "Things will never be the same",
-    ans3 : "That's just the way it is",
-    ans4 : "awww yeah",
+  var questions = {
+    questionSet: [
+      {
+        actualQuestion : "Why is Ritter Gustave just so damn fantastic?",
+        ansChoices : ["he just is?", "He was born that way", "Suisse", "FBGM"],
+        correctChoice : "He was born that way",
+      },
+      {
+        actualQuestion : "Where was Ritter Gustave born?",
+        ansChoices : ["Uruguay", "California", "Switzerland", "Maldives"],
+        correctChoice : "Switzerland",
+      },
+      {
+        actualQuestion : "What is Ritter's Fathers name?",
+        ansChoices : ["Steve", "McChillin", "Bob", "Gerald"],
+        correctChoice : "Gerald",
+      }
+    ],
+
+    currentQuestionIndex : 0,
 
     display: function() {
       $('#questionHolder').empty();
-      $('#questionHolder').text(question1.question);
+      $('#questionHolder').text(this.questionSet[this.currentQuestionIndex].actualQuestion);
+
+      for (var i = 0; i < this.questionSet[this.currentQuestionIndex].ansChoices.length; i++){
+        $('#answer' + i).text(this.questionSet[this.currentQuestionIndex].ansChoices[i]);
+      }
+    },
+
+    startGame: function() {
+      this.display();
+    },
+
+    usrInput: function(a) {
+      console.log($(a).text());
+      if ( $(a).text() === this.questionSet[this.currentQuestionIndex].correctChoice ){
+        console.log("right!");
+        //Build the nextQuestion(True/false) function and increment this.currentQuestionIndex++
+      this.currentQuestionIndex++;
+      if ( this.currentQuestionIndex == 2 ){
+        resetGame();
+      }
     }
-  };
+  }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-});
+questions.startGame();

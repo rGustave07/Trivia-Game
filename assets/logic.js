@@ -76,13 +76,9 @@
       $('#answer2').empty();
       $('#answer3').empty();
       $('#answer0').text("Play Game!");
-      $('#answer0').on('click', function() {
-        console.log("successfully entered play game phase");
-      })
     },
 
     usrInput: function(a) {
-      console.log($(a).text());
         if ( $(a).text() === this.questionSet[this.currentQuestionIndex].correctChoice && $(a).text() != "Play Game!"){
           this.currentQuestionIndex++;
           $('#questionHolder').text("CORRECT");
@@ -91,9 +87,7 @@
           var time = setTimeout( timingFnc, 2500);
         } else if ($(a).text() == "Play Game!" || $(a).text() == ""){
             questions.display();
-            console.log("In the non index++ statement");
         } else {
-            console.log("In the else statement");
             this.currentQuestionIndex++;
             console.log(this.currentQuestionIndex);
             $('#answerSection').hide();

@@ -5,9 +5,11 @@
   var index = 0;
   var timer = 30;
 
-  function rndNumGen(min, max) {
-    return Math.random() * (max - min) + min;
-  };
+  function timingFnc(){
+    questions.display();
+    $('#answerSection').show();
+    timer = 30;
+  }
 
   function resetGame(){
     questions.currentQuestionIndex = 0;
@@ -50,6 +52,17 @@
           $('#answer' + i).text(this.questionSet[this.currentQuestionIndex].ansChoices[i]);
         }
       }
+      var IntervalID = setInterval(function(){
+        timer--;
+        $('#timeBox').text(timer);
+        if ( timer == 0){
+          questions.currentQuestionIndex++;
+          ++wrongAnswers;
+          alert("Time's up! You forfeit this question");
+          questions.display();
+          timer = 30;
+        }
+      }, 1000);
     },
 
     startGame: function() {
@@ -75,11 +88,7 @@
           $('#questionHolder').text("CORRECT");
           $('#answerSection').hide();
           ++correctAnswers;
-          var time = setTimeout( function(){
-            questions.display();
-            $('#answerSection').show();
-            timer = 30;
-          }, 2500);
+          var time = setTimeout( timingFnc, 2500);
         } else if ($(a).text() == "Play Game!" || $(a).text() == ""){
             questions.display();
             console.log("In the non index++ statement");
@@ -90,23 +99,8 @@
             $('#answerSection').hide();
             $('#questionHolder').text("WRONG");
             ++wrongAnswers;
-            var time1 = setTimeout( function(){
-              questions.display();
-              $('#answerSection').show();
-              timer = 30;
-            }, 2500)
+            var time1 = setTimeout( timingFnc, 2500)
         }
-        setInterval(function(){
-          timer--;
-          $('#timeBox').text(timer);
-          if ( timer == 0){
-            questions.currentQuestionIndex++;
-            ++wrongAnswers;
-            alert("Time's up! You forfeit this question");
-            questions.display();
-            timer = 30;
-          }
-        }, 1000);
     }
 }
 

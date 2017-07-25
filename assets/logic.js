@@ -1,7 +1,7 @@
 
   var questionsAsked;
-  var correctAnswers;
-  var wrongAnswers;
+  var correctAnswers =0;
+  var wrongAnswers= 0;
   var index = 0;
   var timer = 30;
 
@@ -13,17 +13,7 @@
     questions.currentQuestionIndex = 0;
     correctAnswers = 0;
     wrongAnswers = 0;
-    $('#questionHolder').empty();
-    $('#questionHolder').text("Welcome to the Trivia Quiz!");
-    $('#answer0').empty();
-    $('#answer1').empty();
-    $('#answer2').empty();
-    $('#answer3').empty();
-    $('#answer0').text("Play Game!");
-    $('#answer0').on('click', function() {
-      console.log("successfully entered play game phase");
-      questions.startGame();
-    })
+    questions.startGame();
   };
 
   var questions = {
@@ -49,6 +39,7 @@
 
     display: function() {
       if ( this.currentQuestionIndex == this.questionSet.length){
+        alert("Correct: " + correctAnswers + " Wrong: " + wrongAnswers);
         resetGame();
       } else {
         $('#questionHolder').empty();
@@ -61,28 +52,47 @@
     },
 
     startGame: function() {
-      this.display();
+      $('#questionHolder').empty();
+      $('#questionHolder').text("Welcome to the Trivia Quiz!");
+      var correctAnswers = 0;
+      var wrongAnswers = 0;
+      $('#answer0').empty();
+      $('#answer1').empty();
+      $('#answer2').empty();
+      $('#answer3').empty();
+      $('#answer0').text("Play Game!");
+      $('#answer0').on('click', function() {
+        console.log("successfully entered play game phase");
+      })
     },
 
     usrInput: function(a) {
       console.log($(a).text());
-        if ( $(a).text() === this.questionSet[this.currentQuestionIndex].correctChoice ){
+        if ( $(a).text() === this.questionSet[this.currentQuestionIndex].correctChoice && $(a).text() != "Play Game!"){
           this.currentQuestionIndex++;
           $('#questionHolder').text("CORRECT");
+          $('#answerSection').hide();
           var time = setTimeout( function(){
             questions.display();
+            $('#answerSection').show();
+            correctAnswers++;
           }, 4000);
-        } else {
-          console.log("In the else statement");
-          this.currentQuestionIndex++;
-          console.log(this.currentQuestionIndex);
-          $('#questionHolder').text("WRONG");
-          var time = setTimeout( function(){
+        } else if ($(a).text() == "Play Game!"){
             questions.display();
-          }, 4000)
+            console.log("In the non index++ statement");
+        } else {
+            console.log("In the else statement");
+            this.currentQuestionIndex++;
+            console.log(this.currentQuestionIndex);
+            $('#answerSection').hide();
+            $('#questionHolder').text("WRONG");
+            wrongAnswers++;
+            var time1 = setTimeout( function(){
+              questions.display();
+              $('#answerSection').show();
+            }, 4000)
         }
     }
 }
 
-
-resetGame();
+questions.startGame();

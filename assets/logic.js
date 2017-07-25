@@ -72,12 +72,12 @@
           this.currentQuestionIndex++;
           $('#questionHolder').text("CORRECT");
           $('#answerSection').hide();
+          ++correctAnswers;
           var time = setTimeout( function(){
             questions.display();
             $('#answerSection').show();
-            correctAnswers++;
-          }, 4000);
-        } else if ($(a).text() == "Play Game!"){
+          }, 2500);
+        } else if ($(a).text() == "Play Game!" || $(a).text() == ""){
             questions.display();
             console.log("In the non index++ statement");
         } else {
@@ -86,11 +86,11 @@
             console.log(this.currentQuestionIndex);
             $('#answerSection').hide();
             $('#questionHolder').text("WRONG");
-            wrongAnswers++;
+            ++wrongAnswers;
             var time1 = setTimeout( function(){
               questions.display();
               $('#answerSection').show();
-            }, 4000)
+            }, 2500)
         }
     }
 }

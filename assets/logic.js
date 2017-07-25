@@ -3,22 +3,26 @@
   var correctAnswers;
   var wrongAnswers;
   var index = 0;
+  var timer = 0;
 
   function rndNumGen(min, max) {
     return Math.random() * (max - min) + min;
   };
 
   function resetGame(){
-    questionsAsked = 0;
+    questions.currentQuestionIndex = 0;
     correctAnswers = 0;
     wrongAnswers = 0;
     $('#questionHolder').empty();
     $('#questionHolder').text("Welcome to the Trivia Quiz!");
+    $('#answer0').empty();
     $('#answer1').empty();
-    $('#answer1').text("Play Game!");
-    $('#answer1').on('click', function() {
+    $('#answer2').empty();
+    $('#answer3').empty();
+    $('#answer0').text("Play Game!");
+    $('#answer0').on('click', function() {
       console.log("successfully entered play game phase");
-      // Enter function in here that starts the game
+      questions.startGame();
     })
   };
 
@@ -44,11 +48,17 @@
     currentQuestionIndex : 0,
 
     display: function() {
-      $('#questionHolder').empty();
-      $('#questionHolder').text(this.questionSet[this.currentQuestionIndex].actualQuestion);
+      if ( this.currentQuestionIndex == this.questionSet.length){
+        resetGame();
+      } else {
+        $('#questionHolder').empty();
+        $('#questionHolder').text(this.questionSet[this.currentQuestionIndex].actualQuestion);
 
-      for (var i = 0; i < this.questionSet[this.currentQuestionIndex].ansChoices.length; i++){
-        $('#answer' + i).text(this.questionSet[this.currentQuestionIndex].ansChoices[i]);
+        for (var i = 0; i < this.questionSet[this.currentQuestionIndex].ansChoices.length; i++){
+          $('#answer' + i).text(this.questionSet[this.currentQuestionIndex].ansChoices[i]);
+        }
+        // Set timer in here
+        
       }
     },
 
@@ -58,14 +68,15 @@
 
     usrInput: function(a) {
       console.log($(a).text());
-      if ( $(a).text() === this.questionSet[this.currentQuestionIndex].correctChoice ){
-        console.log("right!");
-        //Build the nextQuestion(True/false) function and increment this.currentQuestionIndex++
-      this.currentQuestionIndex++;
-      if ( this.currentQuestionIndex == 2 ){
-        resetGame();
-      }
+        if ( $(a).text() === this.questionSet[this.currentQuestionIndex].correctChoice ){
+          this.currentQuestionIndex++;
+          this.display();
+        } else {
+          this.display();
+        }
+        window.clearTimeout(time);
+        time = window.setTimeout(30000);
     }
-  }
-
-questions.startGame();
+}
+var time;
+resetGame();

@@ -67,3 +67,9 @@ body{
   flex-direction: column;
   margin: auto;
 }
+
+#timeBox{
+  color: white;
+  word-wrap: break-word;
+  margin-left: 10px;
+}

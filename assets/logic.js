@@ -13,6 +13,7 @@
     questions.currentQuestionIndex = 0;
     correctAnswers = 0;
     wrongAnswers = 0;
+    timer = 30;
     questions.startGame();
   };
 
@@ -56,6 +57,7 @@
       $('#questionHolder').text("Welcome to the Trivia Quiz!");
       var correctAnswers = 0;
       var wrongAnswers = 0;
+      timer = 30;
       $('#answer0').empty();
       $('#answer1').empty();
       $('#answer2').empty();
@@ -76,6 +78,7 @@
           var time = setTimeout( function(){
             questions.display();
             $('#answerSection').show();
+            timer = 30;
           }, 2500);
         } else if ($(a).text() == "Play Game!" || $(a).text() == ""){
             questions.display();
@@ -90,8 +93,20 @@
             var time1 = setTimeout( function(){
               questions.display();
               $('#answerSection').show();
+              timer = 30;
             }, 2500)
         }
+        setInterval(function(){
+          timer--;
+          $('#timeBox').text(timer);
+          if ( timer == 0){
+            questions.currentQuestionIndex++;
+            ++wrongAnswers;
+            alert("Time's up! You forfeit this question");
+            questions.display();
+            timer = 30;
+          }
+        }, 1000);
     }
 }
 

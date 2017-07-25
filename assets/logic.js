@@ -3,7 +3,7 @@
   var correctAnswers;
   var wrongAnswers;
   var index = 0;
-  var timer = 0;
+  var timer = 30;
 
   function rndNumGen(min, max) {
     return Math.random() * (max - min) + min;
@@ -57,8 +57,6 @@
         for (var i = 0; i < this.questionSet[this.currentQuestionIndex].ansChoices.length; i++){
           $('#answer' + i).text(this.questionSet[this.currentQuestionIndex].ansChoices[i]);
         }
-        // Set timer in here
-        
       }
     },
 
@@ -74,9 +72,8 @@
         } else {
           this.display();
         }
-        window.clearTimeout(time);
-        time = window.setTimeout(30000);
-    }
+    },
 }
-var time;
+
+
 resetGame();

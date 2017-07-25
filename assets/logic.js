@@ -68,11 +68,20 @@
       console.log($(a).text());
         if ( $(a).text() === this.questionSet[this.currentQuestionIndex].correctChoice ){
           this.currentQuestionIndex++;
-          this.display();
+          $('#questionHolder').text("CORRECT");
+          var time = setTimeout( function(){
+            questions.display();
+          }, 4000);
         } else {
-          this.display();
+          console.log("In the else statement");
+          this.currentQuestionIndex++;
+          console.log(this.currentQuestionIndex);
+          $('#questionHolder').text("WRONG");
+          var time = setTimeout( function(){
+            questions.display();
+          }, 4000)
         }
-    },
+    }
 }
 
 

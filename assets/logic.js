@@ -9,7 +9,19 @@
     questions.display();
     $('#answerSection').show();
     timer = 30;
-  }
+  };
+
+  function countDownFnc(){
+    timer--;
+    $('#timeBox').text(timer);
+    if ( timer == 0){
+      questions.currentQuestionIndex++;
+      ++wrongAnswers;
+      alert("Time's up! You forfeit this question");
+      questions.display();
+      timer = 30;
+    }
+  };
 
   function resetGame(){
     questions.currentQuestionIndex = 0;
@@ -52,17 +64,7 @@
           $('#answer' + i).text(this.questionSet[this.currentQuestionIndex].ansChoices[i]);
         }
       }
-      var IntervalID = setInterval(function(){
-        timer--;
-        $('#timeBox').text(timer);
-        if ( timer == 0){
-          questions.currentQuestionIndex++;
-          ++wrongAnswers;
-          alert("Time's up! You forfeit this question");
-          questions.display();
-          timer = 30;
-        }
-      }, 1000);
+      var IntervalID = setInterval( countDownFnc, 1000 );
     },
 
     startGame: function() {

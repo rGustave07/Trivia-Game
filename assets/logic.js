@@ -4,10 +4,11 @@
   var wrongAnswers= 0;
   var index = 0;
   var timer = 30;
+  var intervalID;
 
   function timingFnc(){
     questions.display();
-    clearInterval(intervalID);
+    // clearInterval(intervalID);
     $('#answerSection').show();
     timer = 30;
   };
@@ -56,7 +57,6 @@
     display: function() {
       if ( this.currentQuestionIndex == this.questionSet.length){
         alert("Correct: " + correctAnswers + " Wrong: " + wrongAnswers);
-        clearInterval(intervalID);
         resetGame();
       } else {
         $('#questionHolder').empty();
@@ -78,6 +78,7 @@
       $('#answer1').empty();
       $('#answer2').empty();
       $('#answer3').empty();
+      clearInterval(intervalID);
       $('#answer0').text("Play Game!");
     },
 
@@ -88,6 +89,7 @@
           $('#questionHolder').text("CORRECT");
           $('#answerSection').hide();
           ++correctAnswers;
+          clearInterval(intervalID);
           var time = setTimeout( timingFnc, 2500);
         } else if ($(a).text() == "Play Game!" || $(a).text() == ""){
             questions.display();
@@ -97,6 +99,7 @@
             $('#answerSection').hide();
             $('#questionHolder').text("WRONG");
             ++wrongAnswers;
+            clearInterval(intervalID);
             var time1 = setTimeout( timingFnc, 2500)
         }
     },
